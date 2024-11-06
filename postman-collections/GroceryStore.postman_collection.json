@@ -2215,7 +2215,7 @@
 			]
 		},
 		{
-			"name": "Sorting",
+			"name": "Sorting manual tests",
 			"item": [
 				{
 					"name": "Sorting A-Ö",
@@ -2439,7 +2439,390 @@
 					},
 					"response": []
 				}
+			],
+			"description": "These are manual tests since we could not find a proper way to automatically test sorting."
+		},
+		{
+			"name": "Comparing prices",
+			"item": [
+				{
+					"name": "Compare price Baguette",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"If compareprice is accurate\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    const compare = responseData.comparePrice.slice(0,5)\r",
+									"    const comparePrice = parseFloat(compare)+0.91\r",
+									"    const weight = responseData.displayVolume.slice(0,2)\r",
+									"    const volume = parseFloat(weight)/1000\r",
+									"    const total = comparePrice*volume\r",
+									"    const price = responseData.priceValue\r",
+									"    pm.expect(total.toFixed(1)).to.equal(price.toFixed(1))\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5173/api/axfood/rest/p/101289910_ST",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5173",
+							"path": [
+								"api",
+								"axfood",
+								"rest",
+								"p",
+								"101289910_ST"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Compare price Sausage",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"If compareprice is accurate\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    const compare = responseData.comparePrice.slice(0,5)\r",
+									"    const comparePrice = parseFloat(compare)+0.13\r",
+									"    const weight = responseData.displayVolume.slice(0,2)\r",
+									"    const volume = parseFloat(weight)/100\r",
+									"    const total = comparePrice*volume\r",
+									"    const price = responseData.priceValue\r",
+									"    pm.expect(total.toFixed(1)).to.equal(price.toFixed(1))\r",
+									"     \r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5173/api/axfood/rest/p/100008803_ST",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5173",
+							"path": [
+								"api",
+								"axfood",
+								"rest",
+								"p",
+								"100008803_ST"
+							]
+						}
+					},
+					"response": []
+				}
 			]
+		},
+		{
+			"name": "Visibility product content",
+			"item": [
+				{
+					"name": "Grapes content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"pm.test(\"Check if Grapes have a description\", function () {\r",
+									"    const description = responseData.description\r",
+									"    pm.expect(description.length).to.be.greaterThan(0)\r",
+									"    });\r",
+									"\r",
+									"pm.test(\"Check if Grapes have a picture\", function () {\r",
+									"    const image = responseData.image.url\r",
+									"     pm.expect(image.length).to.be.greaterThan(0)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if Grapes have a name\", function () {\r",
+									"    const name = responseData.name\r",
+									"     pm.expect(name.length).to.be.greaterThan(0)\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5173/api/axfood/rest/p/100008803_ST",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5173",
+							"path": [
+								"api",
+								"axfood",
+								"rest",
+								"p",
+								"100008803_ST"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lotteries content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"pm.test(\"Check if Sverige lotten does not have a description\", function () {\r",
+									"    const description = responseData.description\r",
+									"    pm.expect(description.length).to.equals(0)\r",
+									"    });\r",
+									"\r",
+									"pm.test(\"Check if Sverige lotten have a picture\", function () {\r",
+									"    const image = responseData.image.url\r",
+									"     pm.expect(image.length).to.be.greaterThan(0)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if Sverige lotten have a name\", function () {\r",
+									"    const name = responseData.name\r",
+									"     pm.expect(name.length).to.be.greaterThan(0)\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5173/api/axfood/rest/p/100010710_ST",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5173",
+							"path": [
+								"api",
+								"axfood",
+								"rest",
+								"p",
+								"100010710_ST"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sunflower seeds content",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"pm.test(\"Check if Solrosfrön have a description\", function () {\r",
+									"    const description = responseData.description\r",
+									"    pm.expect(description.length).to.be.greaterThan(0)\r",
+									"    });\r",
+									"\r",
+									"pm.test(\"Check if Solrosfrön have a picture\", function () {\r",
+									"    const image = responseData.image.url\r",
+									"     pm.expect(image.length).to.be.greaterThan(0)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if Solrosfrön have a name\", function () {\r",
+									"    const name = responseData.name\r",
+									"     pm.expect(name.length).to.be.greaterThan(0)\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check if Solrosfrön have storage instructions\", function () {\r",
+									"   const storageInstructions = responseData.consumerStorageInstructions\r",
+									"   pm.expect(storageInstructions.length).to.be.greaterThan(0)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check if Solrosfrön have ingredients\", function () {\r",
+									"    const ingredients = responseData.ingredients\r",
+									"     pm.expect(ingredients.length).to.be.greaterThan(0)\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5173/api/axfood/rest/p/101263458_ST",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5173",
+							"path": [
+								"api",
+								"axfood",
+								"rest",
+								"p",
+								"101263458_ST"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Tests to see if products have a name, text and picture"
+		},
+		{
+			"name": "Visibility in produclist",
+			"item": [
+				{
+					"name": "Coffee list visibilty",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check if Coffee list show a name, price and picture\", function () {\r",
+									"    let responseData = pm.response.json();\r",
+									"    for(i=0; i<responseData.results.length; i++){\r",
+									"        const price = responseData.results[i].price\r",
+									"        const name = responseData.results[i].name\r",
+									"        const image = responseData.results[i].image.url\r",
+									"        pm.expect(price.length).to.be.greaterThan(0)\r",
+									"        pm.expect(name.length).to.be.greaterThan(0)\r",
+									"        pm.expect(image.length).to.be.greaterThan(0)\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5173/api/c/dryck/kaffe?size=30&page=0&sort=topRated",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5173",
+							"path": [
+								"api",
+								"c",
+								"dryck",
+								"kaffe"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "30"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "topRated"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cassler list visibility",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Check if Coffee list show a name, price and picture\", function () {\r",
+									"    let responseData = pm.response.json();\r",
+									"    for(i=0; i<responseData.results.length; i++){\r",
+									"        const price = responseData.results[i].price\r",
+									"        const name = responseData.results[i].name\r",
+									"        const image = responseData.results[i].image.url\r",
+									"        pm.expect(price.length).to.be.greaterThan(0)\r",
+									"        pm.expect(name.length).to.be.greaterThan(0)\r",
+									"        pm.expect(image.length).to.be.greaterThan(0)\r",
+									"    }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5173/api/c/kott-chark-och-fagel/kott/kassler?size=30&page=0&sort=topRated",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5173",
+							"path": [
+								"api",
+								"c",
+								"kott-chark-och-fagel",
+								"kott",
+								"kassler"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "30"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "sort",
+									"value": "topRated"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Testing if products in productlist shows a name, a pricture and a price"
 		}
 	]
 }
