@@ -14,7 +14,7 @@ on:
   # - and a report of success/failure will be shown to the person
   #   approving the pull request
 
-# jobs to run
+# jobs to  run
 jobs:
   # build, the name of the job, a server to create and auto configure
   build:
