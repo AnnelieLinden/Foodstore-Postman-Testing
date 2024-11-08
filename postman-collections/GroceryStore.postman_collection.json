@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "Get All",
+			"name": "Get All",  
 			"item": [
 				{
 					"name": "Get categories",
@@ -17,7 +17,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Get the data from the response unpacked from json",
+									"// Get the data   from the response unpacked from json",
 									"let responseData = pm.response.json();",
 									"function getAllCategories(children, categoryUrls=[]){",
 									"    for(let child of children){",
