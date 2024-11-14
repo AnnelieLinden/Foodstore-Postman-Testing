@@ -1,0 +1,72 @@
+{
+	"info": {
+		"_postman_id": "f84541ef-1c39-405b-b7a0-6ac23773d8ac",
+		"name": "Tryrun",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33840972",
+		"_collection_link": "https://geeksal.postman.co/workspace/GroceryStore~2bd29215-4156-4afe-8f0f-cdc1952838ac/collection/33840972-f84541ef-1c39-405b-b7a0-6ac23773d8ac?action=share&source=collection_link&creator=33840972"
+	},
+	"item": [
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();\r",
+							"function getAllCategories(children, categoryUrls=[]){\r",
+							"    for(let child of children){\r",
+							"        categoryUrls.push(child.url);\r",
+							"        if(child.children.length===0){\r",
+							"            continue;\r",
+							"        }\r",
+							"        getAllCategories(child.children, categoryUrls);\r",
+							"    }\r",
+							"    return categoryUrls;\r",
+							"}\r",
+							"let categories = getAllCategories(responseData.children);\r",
+							"\r",
+							"for(let i=0; i<categories.length; i++){\r",
+							"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&=topRated`, (error, response) => { \r",
+							"        console.log(\"Endpoint: \" + categories[i])\r",
+							"        pm.test(\"Check if productlist show a name, price and picture\", function () {\r",
+							"            let responseData = response.json();\r",
+							"            for(i=0; i<responseData.results.length; i++){\r",
+							"                const price = responseData.results[i].price\r",
+							"                const name = responseData.results[i].name\r",
+							"                const image = responseData.results[i].image.url\r",
+							"                pm.expect(price.length).to.be.greaterThan(0)\r",
+							"                pm.expect(name.length).to.be.greaterThan(0)\r",
+							"                pm.expect(image.length).to.be.greaterThan(0)\r",
+							"            }\r",
+							"        });\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/leftMenu/categorytree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"leftMenu",
+						"categorytree"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
