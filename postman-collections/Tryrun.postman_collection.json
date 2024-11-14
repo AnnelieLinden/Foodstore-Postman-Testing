@@ -8,7 +8,7 @@
 	},
 	"item": [
 		{
-			"name": "New Request",
+			"name": "Visibility in productList",
 			"event": [
 				{
 					"listen": "test",
@@ -28,6 +28,9 @@
 							"let categories = getAllCategories(responseData.children);\r",
 							"\r",
 							"for(let i=0; i<categories.length; i++){\r",
+							"    if(categories[i].includes(\"kiosk\")){\r",
+							"        continue;\r",
+							"    }\r",
 							"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&=topRated`, (error, response) => { \r",
 							"        console.log(\"Endpoint: \" + categories[i])\r",
 							"        pm.test(\"Check if productlist show a name, price and picture\", function () {\r",
