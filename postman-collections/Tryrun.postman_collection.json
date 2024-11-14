@@ -40,7 +40,7 @@
 							"                const price = responseData.results[i].price\r",
 							"                const name = responseData.results[i].name\r",
 							"                const image = responseData.results[i].image.url\r",
-							"                if(price.length===0 || name.length===0|| image.length===0){\r",
+							"                if(price.length<1 || name.length<1|| image.length<1){\r",
 							"                    console.log(\"FAILURE!\")\r",
 							"                    console.log(\"price: \" + price.length);\r",
 							"                    console.log(\"name: \" + name.length);\r",
