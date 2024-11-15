@@ -1,14 +1,14 @@
 {
 	"info": {
-		"_postman_id": "0f1c6fa7-f07f-4266-814c-7b19ef343e5f",
-		"name": "GroceryStore",
+		"_postman_id": "4d238a77-2b75-4f1e-bdf8-7c06cd44a778",
+		"name": "GroceryStore More efficient version",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33840972",
-		"_collection_link": "https://geeksal.postman.co/workspace/GroceryStore~2bd29215-4156-4afe-8f0f-cdc1952838ac/collection/33841427-0f1c6fa7-f07f-4266-814c-7b19ef343e5f?action=share&source=collection_link&creator=33840972"
+		"_collection_link": "https://geeksal.postman.co/workspace/GroceryStore~2bd29215-4156-4afe-8f0f-cdc1952838ac/collection/33840972-4d238a77-2b75-4f1e-bdf8-7c06cd44a778?action=share&source=collection_link&creator=33840972"
 	},
 	"item": [
 		{
-			"name": "Get All",  
+			"name": "Get All",
 			"item": [
 				{
 					"name": "Get categories",
@@ -17,7 +17,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"// Get the data   from the response unpacked from json",
+									"// Get the data from the response unpacked from json",
 									"let responseData = pm.response.json();",
 									"function getAllCategories(children, categoryUrls=[]){",
 									"    for(let child of children){",
@@ -38,7 +38,7 @@
 									"  pm.expect(pm.response).to.have.status(200);",
 									"});",
 									"",
-									"// Check that we have a response time of < 1 second",
+									"// Check that we have a response time of < 2 second",
 									"pm.test('The response time should be below 2 second', () => {",
 									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
 									"})",
@@ -207,2241 +207,7 @@
 			]
 		},
 		{
-			"name": "Head categories",
-			"item": [
-				{
-					"name": "Fruit and veggies",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{domain}}/api/c/frukt-och-gront?size=30&page=0&sort=topRated",
-							"host": [
-								"{{domain}}"
-							],
-							"path": [
-								"api",
-								"c",
-								"frukt-och-gront"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Meat, charcuterie and poultry",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"});  \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/kott-chark-och-fagel?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"kott-chark-och-fagel"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Dairy, cheese and egg",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"    pm.response.to.have.header(\"Content-Type\");\r",
-									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/mejeri-ost-och-agg?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"mejeri-ost-och-agg"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Pantry",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/skafferi?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"skafferi"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deepfrozen",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/fryst?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"fryst"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Fish  and seafood",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/fisk-och-skaldjur?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"fisk-och-skaldjur"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Vegetarian",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/vegetariskt?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"vegetariskt"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Ice cream, candy and snacks",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/glass-godis-och-snacks?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"glass-godis-och-snacks"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Drinks",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/dryck?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"dryck"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Conveniencefood",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/fardigmat?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"fardigmat"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Kids",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/barn?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"barn"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Flowers and garden",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/blommor-och-tradgard?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"blommor-och-tradgard"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Home and cleaning",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/hem-och-stad?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"hem-och-stad"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Health and beauty",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/halsa-och-skonhet?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"halsa-och-skonhet"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Pharmacy",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/apotek?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"apotek"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Animals",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/djur?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"djur"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Kiosk",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/kiosk?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"kiosk"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Lotteries",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"}); \r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/lotter?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"lotter"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "First undercategories",
-			"item": [
-				{
-					"name": "Fruit",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/frukt-och-gront/frukt?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"frukt-och-gront",
-								"frukt"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Sausage",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/kott-chark-och-fagel/korv?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"kott-chark-och-fagel",
-								"korv"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Cheese",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/mejeri-ost-och-agg/ost?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"mejeri-ost-och-agg",
-								"ost"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Canned food",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/skafferi/konserver-och-burkar?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"skafferi",
-								"konserver-och-burkar"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Crackers and cookies",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/brod-och-kakor/kex-och-kakor?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"brod-och-kakor",
-								"kex-och-kakor"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Portioned dishes and fastfood",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/fryst/portionsratter-och-snabblagat?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"fryst",
-								"portionsratter-och-snabblagat"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Caviar and rum",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/fisk-och-skaldjur/kaviar-och-rom?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"fisk-och-skaldjur",
-								"kaviar-och-rom"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Tofu",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/vegetariskt?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"vegetariskt"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Chocolate",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/glass-godis-och-snacks/choklad?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"glass-godis-och-snacks",
-								"choklad"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Coffee",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/dryck/kaffe?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"dryck",
-								"kaffe"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Second undercategories",
-			"item": [
-				{
-					"name": "Fish-and-seafood",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"        pm.response.to.have.status(200)\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									" pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/skafferi/konserver-och-burkar/fisk-och-skaldjurskonserver?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"skafferi",
-								"konserver-och-burkar",
-								"fisk-och-skaldjurskonserver"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Pasta, rice and groats",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"        pm.response.to.have.status(200)\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/skafferi/pasta-ris-och-matgryn?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"skafferi",
-								"pasta-ris-och-matgryn"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Third undercategories",
-			"item": [
-				{
-					"name": "Pasta",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"pm.test(\"Content-Type is present\", function () {\r",
-									"        pm.response.to.have.header(\"Content-Type\");\r",
-									"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
-									"});\r",
-									"pm.test(\"Correct number of results per page\", function () {\r",
-									"    const resultsPerPage = 31;\r",
-									"    const jsonData = pm.response.json();\r",
-									"    const results = jsonData.results.length;\r",
-									"    pm.expect(results).lessThan(resultsPerPage);\r",
-									"})\r",
-									"let responseData = pm.response.json();\r",
-									"pm.test('There should be at least one product in a main category', () => {\r",
-									"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
-									"});"
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/skafferi/pasta-ris-och-matgryn/pasta?size=30&page=0&sort=topRated",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"skafferi",
-								"pasta-ris-och-matgryn",
-								"pasta"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Sorting manual tests",
-			"item": [
-				{
-					"name": "Sorting A-Ö",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/brod-och-kakor/brod/baguetter-och-losbrod?size=30&page=0&sort=name-asc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"brod-och-kakor",
-								"brod",
-								"baguetter-och-losbrod"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "name-asc"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Sorting Ö-A",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/brod-och-kakor/brod/baguetter-och-losbrod?size=30&page=0&sort=name-desc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"brod-och-kakor",
-								"brod",
-								"baguetter-och-losbrod"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "name-desc"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Sorting Price Cheap-Expensive",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/brod-och-kakor/brod/baguetter-och-losbrod?size=30&page=0&sort=price-asc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"brod-och-kakor",
-								"brod",
-								"baguetter-och-losbrod"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "price-asc"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Sorting Price Expensive-Cheap",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/brod-och-kakor/brod/baguetter-och-losbrod?size=30&page=0&sort=price-desc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"brod-och-kakor",
-								"brod",
-								"baguetter-och-losbrod"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "price-desc"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Sorting Compareprice Cheap-Expensive",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/brod-och-kakor/brod/baguetter-och-losbrod?size=30&page=0&sort=compareprice-asc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"brod-och-kakor",
-								"brod",
-								"baguetter-och-losbrod"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "compareprice-asc"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Sorting Compareprice Expensive-Cheap",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:4000/api/c/brod-och-kakor/brod/baguetter-och-losbrod?size=30&page=0&sort=compareprice-desc",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "4000",
-							"path": [
-								"api",
-								"c",
-								"brod-och-kakor",
-								"brod",
-								"baguetter-och-losbrod"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "compareprice-desc"
-								}
-							]
-						}
-					},
-					"response": []
-				}
-			],
-			"description": "These are manual tests since we could not find a proper way to automatically test sorting."
-		},
-		{
-			"name": "Comparing prices",
+			"name": "Comparing prices are accurate",
 			"item": [
 				{
 					"name": "Compare price Baguette",
@@ -2534,7 +300,8 @@
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Test if compare price is accurate for some products."
 		},
 		{
 			"name": "Visibility product content",
@@ -2697,40 +464,99 @@
 					"response": []
 				}
 			],
-			"description": "Tests to see if products have a name, text and picture"
+			"description": "Tests to see if products have a name, description and picture.\n\nIn some cases also contains storage instructions and ingredients."
 		},
 		{
-			"name": "Visibility in produclist",
+			"name": "Sorting",
 			"item": [
 				{
-					"name": "Coffee list visibilty",
+					"name": "Sort by price: Cheap-Expensive",
 					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Check if Coffee list show a name, price and picture\", function () {\r",
-									"    let responseData = pm.response.json();\r",
-									"    for(i=0; i<responseData.results.length; i++){\r",
-									"        const price = responseData.results[i].price\r",
-									"        const name = responseData.results[i].name\r",
-									"        const image = responseData.results[i].image.url\r",
-									"        pm.expect(price.length).to.be.greaterThan(0)\r",
-									"        pm.expect(name.length).to.be.greaterThan(0)\r",
-									"        pm.expect(image.length).to.be.greaterThan(0)\r",
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
 									"    }\r",
-									"});"
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){\r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=price-asc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"        const ordinaryprices = [];\r",
+									"        const allPrices = [];\r",
+									"        for(let i = 0; i < responseData.results.length; i++){ \r",
+									"            var ordinaryPrice = (responseData.results[i].priceValue);\r",
+									"            var promotion = (responseData.results[i].potentialPromotions[0]);\r",
+									"            ordinaryprices.push(ordinaryPrice);\r",
+									"\r",
+									"            if (promotion !== undefined) {\r",
+									"                var promotionValue = promotion.price.value;\r",
+									"                allPrices.push(promotionValue);\r",
+									"            } else {\r",
+									"                allPrices.push(ordinaryPrice);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        let allPricesSorted = JSON.stringify(allPrices.sort((a, b) => a - b));\r",
+									"        let isOrdered = JSON.stringify(allPrices) === allPricesSorted; \r",
+									"        let orderedProducts = JSON.stringify(ordinaryprices.sort((a, b) => a - b));\r",
+									"        let ordinaryOrdered = JSON.stringify(ordinaryprices) === orderedProducts;\r",
+									"\r",
+									"        if (isOrdered) {\r",
+									"            pm.test('The productList is in ascending order due to promotionprices', function () {\r",
+									"                pm.expect(isOrdered).to.be.true;\r",
+									"            });\r",
+									"        } else {\r",
+									"            pm.test('The productList is in ascending order', function () {\r",
+									"                pm.expect(ordinaryOrdered).to.be.true;\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "http://localhost:4000/api/c/dryck/kaffe?size=30&page=0&sort=topRated",
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2738,46 +564,67 @@
 							"port": "4000",
 							"path": [
 								"api",
-								"c",
-								"dryck",
-								"kaffe"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
+								"leftMenu",
+								"categorytree"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Cassler list visibility",
+					"name": "Sort by price: Expensive-Cheap",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Check if Coffee list show a name, price and picture\", function () {\r",
-									"    let responseData = pm.response.json();\r",
-									"    for(i=0; i<responseData.results.length; i++){\r",
-									"        const price = responseData.results[i].price\r",
-									"        const name = responseData.results[i].name\r",
-									"        const image = responseData.results[i].image.url\r",
-									"        pm.expect(price.length).to.be.greaterThan(0)\r",
-									"        pm.expect(name.length).to.be.greaterThan(0)\r",
-									"        pm.expect(image.length).to.be.greaterThan(0)\r",
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
 									"    }\r",
-									"});"
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){\r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=price-desc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"        const ordinaryprices = [];\r",
+									"        const allPrices = [];\r",
+									"        for(let i = 0; i < responseData.results.length; i++){ \r",
+									"            var ordinaryPrice = (responseData.results[i].priceValue);\r",
+									"            var promotion = (responseData.results[i].potentialPromotions[0]);\r",
+									"            ordinaryprices.push(ordinaryPrice);\r",
+									"\r",
+									"            if (promotion !== undefined) {\r",
+									"                var promotionValue = promotion.price.value;\r",
+									"                allPrices.push(promotionValue);\r",
+									"            } else {\r",
+									"                allPrices.push(ordinaryPrice);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        let allPricesSorted = JSON.stringify(allPrices.sort((a, b) => a - b).reverse());\r",
+									"        let isOrdered = JSON.stringify(allPrices) === allPricesSorted; \r",
+									"        let orderedProducts = JSON.stringify(ordinaryprices.sort((a, b) => a - b).reverse());\r",
+									"        let ordinaryOrdered = JSON.stringify(ordinaryprices) === orderedProducts;\r",
+									"\r",
+									"        if (isOrdered) {\r",
+									"            pm.test('The productList is in ascending order due to promotionprices', function () {\r",
+									"                pm.expect(isOrdered).to.be.true;\r",
+									"            });\r",
+									"        } else {\r",
+									"            pm.test('The productList is in ascending order', function () {\r",
+									"                pm.expect(ordinaryOrdered).to.be.true;\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2788,7 +635,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:4000/api/c/kott-chark-och-fagel/kott/kassler?size=30&page=0&sort=topRated",
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -2796,31 +643,599 @@
 							"port": "4000",
 							"path": [
 								"api",
-								"c",
-								"kott-chark-och-fagel",
-								"kott",
-								"kassler"
+								"leftMenu",
+								"categorytree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by compareprice: Cheap-Expensive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
+									"    }\r",
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){\r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=compareprice-asc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"\r",
+									"        const ordinaryprices = [];\r",
+									"        const allPrices = [];\r",
+									"        for(let i = 0; i < responseData.results.length; i++){ \r",
+									"            var ordinaryPrice = (responseData.results[i].comparePrice.slice(0,5));\r",
+									"            var promotion = (responseData.results[i].potentialPromotions[0]);\r",
+									"            const comparePrice = parseFloat(ordinaryprices)\r",
+									"            ordinaryprices.push(comparePrice);\r",
+									"\r",
+									"            if (promotion !== undefined) {\r",
+									"                var promotionValue = promotion.price.comparePrice.slice(0,5);\r",
+									"                const comparePromotion = parseFloat(promotionValue)\r",
+									"                allPrices.push(comparePromotion);\r",
+									"            } else {\r",
+									"                allPrices.push(comparePrice);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        let allPricesSorted = JSON.stringify(allPrices.sort((a, b) => a - b));\r",
+									"        let isOrdered = JSON.stringify(allPrices) === allPricesSorted; \r",
+									"        let orderedProducts = JSON.stringify(ordinaryprices.sort((a, b) => a - b));\r",
+									"        let ordinaryOrdered = JSON.stringify(ordinaryprices) === orderedProducts;\r",
+									"\r",
+									"        if (isOrdered) {\r",
+									"            pm.test('The productList is in compareprice ascending order due to promotionprices', function () {\r",
+									"                pm.expect(isOrdered).to.be.true;\r",
+									"            });\r",
+									"        } else {\r",
+									"            pm.test('The productList is in compareprice ascending order', function () {\r",
+									"                pm.expect(ordinaryOrdered).to.be.true;\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
+							"protocol": "http",
+							"host": [
+								"localhost"
 							],
-							"query": [
-								{
-									"key": "size",
-									"value": "30"
-								},
-								{
-									"key": "page",
-									"value": "0"
-								},
-								{
-									"key": "sort",
-									"value": "topRated"
-								}
+							"port": "4000",
+							"path": [
+								"api",
+								"leftMenu",
+								"categorytree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by compareprice: Expensive-Cheap",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
+									"    }\r",
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){\r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=compareprice-desc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"\r",
+									"        const ordinaryprices = [];\r",
+									"        const allPrices = [];\r",
+									"        for(let i = 0; i < responseData.results.length; i++){ \r",
+									"            var ordinaryPrice = (responseData.results[i].comparePrice.slice(0,5));\r",
+									"            var promotion = (responseData.results[i].potentialPromotions[0]);\r",
+									"            const comparePrice = parseFloat(ordinaryprices)\r",
+									"            ordinaryprices.push(comparePrice);\r",
+									"\r",
+									"            if (promotion !== undefined) {\r",
+									"                var promotionValue = promotion.price.comparePrice.slice(0,5);\r",
+									"                const comparePromotion = parseFloat(promotionValue)\r",
+									"                allPrices.push(comparePromotion);\r",
+									"            } else {\r",
+									"                allPrices.push(comparePrice);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        let allPricesSorted = JSON.stringify(allPrices.sort((a, b) => a - b).reverse());\r",
+									"        let isOrdered = JSON.stringify(allPrices) === allPricesSorted; \r",
+									"        let orderedProducts = JSON.stringify(ordinaryprices.sort((a, b) => a - b).reverse());\r",
+									"        let ordinaryOrdered = JSON.stringify(ordinaryprices) === orderedProducts;\r",
+									"\r",
+									"        if (isOrdered) {\r",
+									"            pm.test('The productList is in compareprice descending order due to promotionprices', function () {\r",
+									"                pm.expect(isOrdered).to.be.true;\r",
+									"            });\r",
+									"        } else {\r",
+									"            pm.test('The productList is in compareprice descending order', function () {\r",
+									"                pm.expect(ordinaryOrdered).to.be.true;\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"leftMenu",
+								"categorytree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by name: A-Ö",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
+									"    }\r",
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){    \r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=1000&page=0&sort=name-asc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"        let original = responseData.results.map(item => item.name.toLowerCase());\r",
+									"        let ourSort = [...original].sort()\r",
+									"        let isOrdered = JSON.stringify(original) === JSON.stringify(original);\r",
+									"        let difference = []\r",
+									"\r",
+									"        for(let j=0; j<original.length; j++){\r",
+									"            if (ourSort[j] !== original[j]) {\r",
+									"                difference.push(j, \" orginalet: \" + original[j], \" vår sortering: \"+ ourSort[j]);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        pm.test('The productList is in ascending order due to name', function () {\r",
+									"            if(!isOrdered){\r",
+									"                console.log(\"endpoint: \", categories[i])\r",
+									"                console.log(difference)\r",
+									"            }\r",
+									"            pm.expect(isOrdered).to.be.true;\r",
+									"        });\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"leftMenu",
+								"categorytree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by name: Ö-A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
+									"    }\r",
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){    \r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=1000&page=0&sort=name-desc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"        let original = responseData.results.map(item => item.name.toLowerCase());\r",
+									"        let ourSort = [...original].sort().reverse()\r",
+									"        let isOrdered = JSON.stringify(original) === JSON.stringify(original);\r",
+									"        let difference = []\r",
+									"\r",
+									"        for(let j=0; j<original.length; j++){\r",
+									"            if (ourSort[j] !== original[j]) {\r",
+									"                difference.push(j, \" orginalet: \" + original[j], \" vår sortering: \"+ ourSort[j]);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        pm.test('The productList is in descending order due to name', function () {\r",
+									"            if(!isOrdered){\r",
+									"                console.log(\"endpoint: \", categories[i])\r",
+									"                console.log(difference)\r",
+									"            }\r",
+									"            pm.expect(isOrdered).to.be.true;\r",
+									"        });\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"leftMenu",
+								"categorytree"
 							]
 						}
 					},
 					"response": []
 				}
 			],
-			"description": "Testing if products in productlist shows a name, a pricture and a price"
+			"description": "Sort by price tests are adapted to suit the API which does not show promotionprices even if there is an active promotion in place. The tests therefore check if a promotion is active or not and compare the promotionprice with the ordinaryprice."
+		},
+		{
+			"name": "Check Statuscode, content-Type and atleast 1 product in each category",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();\r",
+							"function getAllCategories(children, categoryUrls=[]){\r",
+							"    for(let child of children){\r",
+							"        categoryUrls.push(child.url);\r",
+							"        if(child.children.length===0){\r",
+							"            continue;\r",
+							"        }\r",
+							"        getAllCategories(child.children, categoryUrls);\r",
+							"    }\r",
+							"    return categoryUrls;\r",
+							"}\r",
+							"let categories = getAllCategories(responseData.children);\r",
+							"\r",
+							"for(let i=0; i<categories.length; i++){\r",
+							"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=price-asc`, (error, response) => { \r",
+							"        console.log(\"Endpoint: \" + categories[i])\r",
+							"        pm.test(\"status code is 200\", function () {\r",
+							"            pm.response.to.have.status(200);\r",
+							"        });\r",
+							"        \r",
+							"        pm.test(\"Content-Type is present\", function () {\r",
+							"            pm.response.to.have.header(\"Content-Type\");\r",
+							"            pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"        });\r",
+							"\r",
+							"        let responseData = response.json();\r",
+							"        pm.test('There should be at least one product in a main category', () => {\r",
+							"            pm.expect(responseData.results.length).to.be.at.least(1);\r",
+							"        });\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/leftMenu/categorytree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"leftMenu",
+						"categorytree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Visibility in productList",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();\r",
+							"function getAllCategories(children, categoryUrls=[]){\r",
+							"    for(let child of children){\r",
+							"        categoryUrls.push(child.url);\r",
+							"        if(child.children.length===0){\r",
+							"            continue;\r",
+							"        }\r",
+							"        getAllCategories(child.children, categoryUrls);\r",
+							"    }\r",
+							"    return categoryUrls;\r",
+							"}\r",
+							"let categories = getAllCategories(responseData.children);\r",
+							"\r",
+							"for(let i=0; i<categories.length; i++){\r",
+							"    //This category comes out empty 14/11-24\r",
+							"    if(categories[i].includes(\"kiosk\")){\r",
+							"        continue;\r",
+							"    } \r",
+							"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&=topRated`, (error, response) => { \r",
+							"        console.log(\"Endpoint: \" + categories[i])\r",
+							"            let responseData = response.json();\r",
+							"            for(i=0; i<responseData.results.length; i++){\r",
+							"                const price = responseData.results[i].price\r",
+							"                const name = responseData.results[i].name\r",
+							"                const image = responseData.results[i].image.url\r",
+							"                if(price.length<1 || name.length<1|| image.length<1){\r",
+							"                    console.log(\"FAILURE!\")\r",
+							"                    console.log(\"price: \" + price.length);\r",
+							"                    console.log(\"name: \" + name.length);\r",
+							"                    console.log(\"image: \" + image.length);\r",
+							"                }\r",
+							"            pm.test(\"Check if productlist show a name, price and picture\", function () {\r",
+							"                pm.expect(price.length).to.be.greaterThan(0)\r",
+							"                pm.expect(name.length).to.be.greaterThan(0)\r",
+							"                pm.expect(image.length).to.be.greaterThan(0)\r",
+							"            });\r",
+							"        }\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/leftMenu/categorytree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"leftMenu",
+						"categorytree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Pagination",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();\r",
+							"function getAllCategories(children, categoryUrls=[]){\r",
+							"    for(let child of children){\r",
+							"        categoryUrls.push(child.url);\r",
+							"        if(child.children.length===0){\r",
+							"            continue;\r",
+							"        }\r",
+							"        getAllCategories(child.children, categoryUrls);\r",
+							"    }\r",
+							"    return categoryUrls;\r",
+							"}\r",
+							"let categories = getAllCategories(responseData.children);\r",
+							"\r",
+							"for(let i=0; i<categories.length; i++){\r",
+							"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=price-asc`, (error, response) => { \r",
+							"        console.log(\"Endpoint: \" + categories[i])\r",
+							"        pm.test(\"Correct number of results per page\", function () {\r",
+							"            const resultsPerPage = 31;\r",
+							"            const jsonData = response.json();\r",
+							"            const results = jsonData.results.length;\r",
+							"            pm.expect(results).lessThan(resultsPerPage);\r",
+							"        }); \r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/leftMenu/categorytree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"leftMenu",
+						"categorytree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Kiosk",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"        pm.response.to.have.header(\"Content-Type\");\r",
+							"     pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"let responseData = pm.response.json();\r",
+							"pm.test('There should be at least one product in a main category', () => {\r",
+							"    pm.expect(responseData.results.length).to.be.at.least(1);\r",
+							"});\r",
+							"        pm.test(\"Check if productlist show a name, price and picture\", function () {\r",
+							"            let responseData = pm.response.json();\r",
+							"            for(i=0; i<responseData.results.length; i++){\r",
+							"                const price = responseData.results[i].price\r",
+							"                const name = responseData.results[i].name\r",
+							"                const image = responseData.results[i].image.url\r",
+							"                pm.expect(price.length).to.be.greaterThan(0)\r",
+							"                pm.expect(name.length).to.be.greaterThan(0)\r",
+							"                pm.expect(image.length).to.be.greaterThan(0)\r",
+							"            }\r",
+							"        });"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/c/kiosk?size=30&page=0&sort=topRated",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"c",
+						"kiosk"
+					],
+					"query": [
+						{
+							"key": "size",
+							"value": "30"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "sort",
+							"value": "topRated"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
