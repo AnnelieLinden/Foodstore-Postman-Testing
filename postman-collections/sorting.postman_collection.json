@@ -1,0 +1,526 @@
+{
+	"info": {
+		"_postman_id": "0d466814-f1d7-4458-a710-11213a56351b",
+		"name": "sorting",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33840972",
+		"_collection_link": "https://geeksal.postman.co/workspace/GroceryStore~2bd29215-4156-4afe-8f0f-cdc1952838ac/collection/33840972-0d466814-f1d7-4458-a710-11213a56351b?action=share&source=collection_link&creator=33840972"
+	},
+	"item": [
+		{
+			"name": "Sorting",
+			"item": [
+				{
+					"name": "Sort by price: Cheap-Expensive",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
+									"    }\r",
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){\r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=price-asc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"        const ordinaryprices = [];\r",
+									"        const allPrices = [];\r",
+									"        for(let i = 0; i < responseData.results.length; i++){ \r",
+									"            var ordinaryPrice = (responseData.results[i].priceValue);\r",
+									"            var promotion = (responseData.results[i].potentialPromotions[0]);\r",
+									"            ordinaryprices.push(ordinaryPrice);\r",
+									"\r",
+									"            if (promotion !== undefined) {\r",
+									"                var promotionValue = promotion.price.value;\r",
+									"                allPrices.push(promotionValue);\r",
+									"            } else {\r",
+									"                allPrices.push(ordinaryPrice);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        let allPricesSorted = JSON.stringify(allPrices.sort((a, b) => a - b));\r",
+									"        let isOrdered = JSON.stringify(allPrices) === allPricesSorted; \r",
+									"        let orderedProducts = JSON.stringify(ordinaryprices.sort((a, b) => a - b));\r",
+									"        let ordinaryOrdered = JSON.stringify(ordinaryprices) === orderedProducts;\r",
+									"\r",
+									"        if (isOrdered) {\r",
+									"            pm.test('The productList is in ascending order due to promotionprices', function () {\r",
+									"                pm.expect(isOrdered).to.be.true;\r",
+									"            });\r",
+									"        } else {\r",
+									"            pm.test('The productList is in ascending order', function () {\r",
+									"                pm.expect(ordinaryOrdered).to.be.true;\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"leftMenu",
+								"categorytree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by price: Expensive-Cheap",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
+									"    }\r",
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){\r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=price-desc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"        const ordinaryprices = [];\r",
+									"        const allPrices = [];\r",
+									"        for(let i = 0; i < responseData.results.length; i++){ \r",
+									"            var ordinaryPrice = (responseData.results[i].priceValue);\r",
+									"            var promotion = (responseData.results[i].potentialPromotions[0]);\r",
+									"            ordinaryprices.push(ordinaryPrice);\r",
+									"\r",
+									"            if (promotion !== undefined) {\r",
+									"                var promotionValue = promotion.price.value;\r",
+									"                allPrices.push(promotionValue);\r",
+									"            } else {\r",
+									"                allPrices.push(ordinaryPrice);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        let allPricesSorted = JSON.stringify(allPrices.sort((a, b) => a - b).reverse());\r",
+									"        let isOrdered = JSON.stringify(allPrices) === allPricesSorted; \r",
+									"        let orderedProducts = JSON.stringify(ordinaryprices.sort((a, b) => a - b).reverse());\r",
+									"        let ordinaryOrdered = JSON.stringify(ordinaryprices) === orderedProducts;\r",
+									"\r",
+									"        if (isOrdered) {\r",
+									"            pm.test('The productList is in ascending order due to promotionprices', function () {\r",
+									"                pm.expect(isOrdered).to.be.true;\r",
+									"            });\r",
+									"        } else {\r",
+									"            pm.test('The productList is in ascending order', function () {\r",
+									"                pm.expect(ordinaryOrdered).to.be.true;\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"leftMenu",
+								"categorytree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by compareprice: Cheap-Expensive",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
+									"    }\r",
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){\r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=compareprice-asc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"\r",
+									"        const ordinaryprices = [];\r",
+									"        const allPrices = [];\r",
+									"        for(let i = 0; i < responseData.results.length; i++){ \r",
+									"            var ordinaryPrice = (responseData.results[i].comparePrice.slice(0,5));\r",
+									"            var promotion = (responseData.results[i].potentialPromotions[0]);\r",
+									"            const comparePrice = parseFloat(ordinaryprices)\r",
+									"            ordinaryprices.push(comparePrice);\r",
+									"\r",
+									"            if (promotion !== undefined) {\r",
+									"                var promotionValue = promotion.price.comparePrice.slice(0,5);\r",
+									"                const comparePromotion = parseFloat(promotionValue)\r",
+									"                allPrices.push(comparePromotion);\r",
+									"            } else {\r",
+									"                allPrices.push(comparePrice);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        let allPricesSorted = JSON.stringify(allPrices.sort((a, b) => a - b));\r",
+									"        let isOrdered = JSON.stringify(allPrices) === allPricesSorted; \r",
+									"        let orderedProducts = JSON.stringify(ordinaryprices.sort((a, b) => a - b));\r",
+									"        let ordinaryOrdered = JSON.stringify(ordinaryprices) === orderedProducts;\r",
+									"\r",
+									"        if (isOrdered) {\r",
+									"            pm.test('The productList is in compareprice ascending order due to promotionprices', function () {\r",
+									"                pm.expect(isOrdered).to.be.true;\r",
+									"            });\r",
+									"        } else {\r",
+									"            pm.test('The productList is in compareprice ascending order', function () {\r",
+									"                pm.expect(ordinaryOrdered).to.be.true;\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"leftMenu",
+								"categorytree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by compareprice: Expensive-Cheap",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
+									"    }\r",
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){\r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=compareprice-desc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"\r",
+									"        const ordinaryprices = [];\r",
+									"        const allPrices = [];\r",
+									"        for(let i = 0; i < responseData.results.length; i++){ \r",
+									"            var ordinaryPrice = (responseData.results[i].comparePrice.slice(0,5));\r",
+									"            var promotion = (responseData.results[i].potentialPromotions[0]);\r",
+									"            const comparePrice = parseFloat(ordinaryprices)\r",
+									"            ordinaryprices.push(comparePrice);\r",
+									"\r",
+									"            if (promotion !== undefined) {\r",
+									"                var promotionValue = promotion.price.comparePrice.slice(0,5);\r",
+									"                const comparePromotion = parseFloat(promotionValue)\r",
+									"                allPrices.push(comparePromotion);\r",
+									"            } else {\r",
+									"                allPrices.push(comparePrice);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        let allPricesSorted = JSON.stringify(allPrices.sort((a, b) => a - b).reverse());\r",
+									"        let isOrdered = JSON.stringify(allPrices) === allPricesSorted; \r",
+									"        let orderedProducts = JSON.stringify(ordinaryprices.sort((a, b) => a - b).reverse());\r",
+									"        let ordinaryOrdered = JSON.stringify(ordinaryprices) === orderedProducts;\r",
+									"\r",
+									"        if (isOrdered) {\r",
+									"            pm.test('The productList is in compareprice descending order due to promotionprices', function () {\r",
+									"                pm.expect(isOrdered).to.be.true;\r",
+									"            });\r",
+									"        } else {\r",
+									"            pm.test('The productList is in compareprice descending order', function () {\r",
+									"                pm.expect(ordinaryOrdered).to.be.true;\r",
+									"            });\r",
+									"        }\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"leftMenu",
+								"categorytree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by name: A-Ö",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
+									"    }\r",
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){    \r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=1000&page=0&sort=name-asc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"        let original = responseData.results.map(item => item.name.toLowerCase());\r",
+									"        let ourSort = [...original].toSorted((a, b) => a - b)\r",
+									"        let isOrdered = JSON.stringify(ourSort) === JSON.stringify(original);\r",
+									"        let difference = []\r",
+									"\r",
+									"        for(let j=0; j<original.length; j++){\r",
+									"            if (ourSort[j] !== original[j]) {\r",
+									"                difference.push(j, \" orginalet: \" + original[j], \" vår sortering: \"+ ourSort[j]);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        pm.test('The productList is in ascending order due to name', function () {\r",
+									"            if(!isOrdered){\r",
+									"                console.log(\"endpoint: \", categories[i])\r",
+									"                console.log(difference)\r",
+									"            }\r",
+									"            pm.expect(isOrdered).to.be.true;\r",
+									"        });\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"leftMenu",
+								"categorytree"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sort by name: Ö-A",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let responseData = pm.response.json();\r",
+									"function getAllCategories(children, categoryUrls=[]){\r",
+									"    for(let child of children){\r",
+									"        categoryUrls.push(child.url);\r",
+									"        if(child.children.length===0){\r",
+									"            continue;\r",
+									"        }\r",
+									"        getAllCategories(child.children, categoryUrls);\r",
+									"    }\r",
+									"    return categoryUrls;\r",
+									"}\r",
+									"let categories = getAllCategories(responseData.children);\r",
+									"\r",
+									"for(let i=0; i<categories.length; i++){    \r",
+									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=1000&page=0&sort=name-desc`, (error, response) => {\r",
+									"        let responseData = response.json(); \r",
+									"        let original = responseData.results.map(item => item.name.toLowerCase());\r",
+									"        const names = [];\r",
+									"        for(var x = 0; x<responseData.results.length;x++){\r",
+									"            names.push(responseData.results[x].name.toLowerCase());\r",
+									"        }\r",
+									"        var ourSort = names.sort().reverse();\r",
+									"        let isOrdered = JSON.stringify(ourSort) === JSON.stringify(original.sort().reverse());\r",
+									"        let difference = []\r",
+									"\r",
+									"        for(let j=0; j<original.length; j++){\r",
+									"            if (ourSort[j] !== original[j]) {\r",
+									"                difference.push(j, \" orginalet: \" + original[j], \" vår sortering: \"+ ourSort[j]);\r",
+									"            }\r",
+									"        }\r",
+									"\r",
+									"        pm.test('The productList is in descending order due to name', function () {\r",
+									"            if(!isOrdered){\r",
+									"                console.log(\"endpoint: \", categories[i])\r",
+									"                console.log(difference)\r",
+									"            }\r",
+									"            pm.expect(isOrdered).to.be.true;\r",
+									"        });\r",
+									"    });\r",
+									"}\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/api/leftMenu/categorytree",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"api",
+								"leftMenu",
+								"categorytree"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Sort by price tests are adapted to suit the API which does not show promotionprices even if there is an active promotion in place. The tests therefore check if a promotion is active or not and compare the promotionprice with the ordinaryprice."
+		}
+	]
+}
