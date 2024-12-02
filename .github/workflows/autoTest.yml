@@ -19,25 +19,4 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: nohup node backend/index.js &
-    - run: npm run test
-  sorting:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
-    steps:
-    - uses: actions/checkout@v4
-    - name: sorting-test Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: nohup node backend/index.js &
-    - run: npm run test-sorting   
-  #job2: 
-   # needs: endpoint-tests
-    #- run: npm test
-  #job3: 
-   # needs: endpoint-tests
-    #run: npm run test-sorting
+    - run: npm run test-simple
