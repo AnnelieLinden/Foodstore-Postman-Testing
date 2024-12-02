@@ -9,6 +9,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "test-simple": "newman run postman-collections/Simple-version.postman_collection.json",
     "test": "newman run postman-collections/GroceryStore.postman_collection.json",
     "test-sorting": "newman run postman-collections/sorting.postman_collection.json"
   },

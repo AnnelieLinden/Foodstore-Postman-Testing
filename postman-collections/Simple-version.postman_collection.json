@@ -1,17 +1,17 @@
 {
 	"info": {
-		"_postman_id": "0d466814-f1d7-4458-a710-11213a56351b",
-		"name": "sorting",
+		"_postman_id": "46702438-3d37-4b02-8af7-3e9913931fea",
+		"name": "Simple version",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33840972",
-		"_collection_link": "https://geeksal.postman.co/workspace/GroceryStore~2bd29215-4156-4afe-8f0f-cdc1952838ac/collection/33840972-0d466814-f1d7-4458-a710-11213a56351b?action=share&source=collection_link&creator=33840972"
+		"_collection_link": "https://geeksal.postman.co/workspace/GroceryStore~2bd29215-4156-4afe-8f0f-cdc1952838ac/collection/33840972-46702438-3d37-4b02-8af7-3e9913931fea?action=share&source=collection_link&creator=33840972"
 	},
 	"item": [
 		{
-			"name": "Sorting",
+			"name": "simple version sorting",
 			"item": [
 				{
-					"name": "Sort by price: Cheap-Expensive",
+					"name": "Sort by price: Cheap-Expensive Copy",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -31,13 +31,10 @@
 									"function getAllCategories(children, categoryUrls=[]){\r",
 									"    for(let child of children){\r",
 									"        categoryUrls.push(child.url);\r",
-									"        if(child.children.length===0){\r",
-									"            continue;\r",
-									"        }\r",
-									"        getAllCategories(child.children, categoryUrls);\r",
 									"    }\r",
 									"    return categoryUrls;\r",
 									"}\r",
+									"\r",
 									"let categories = getAllCategories(responseData.children);\r",
 									"\r",
 									"for(let i=0; i<categories.length; i++){\r",
@@ -113,7 +110,7 @@
 					"response": []
 				},
 				{
-					"name": "Sort by price: Expensive-Cheap",
+					"name": "Sort by price: Expensive-Cheap Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -123,13 +120,10 @@
 									"function getAllCategories(children, categoryUrls=[]){\r",
 									"    for(let child of children){\r",
 									"        categoryUrls.push(child.url);\r",
-									"        if(child.children.length===0){\r",
-									"            continue;\r",
-									"        }\r",
-									"        getAllCategories(child.children, categoryUrls);\r",
 									"    }\r",
 									"    return categoryUrls;\r",
 									"}\r",
+									"\r",
 									"let categories = getAllCategories(responseData.children);\r",
 									"\r",
 									"for(let i=0; i<categories.length; i++){\r",
@@ -192,7 +186,7 @@
 					"response": []
 				},
 				{
-					"name": "Sort by compareprice: Cheap-Expensive",
+					"name": "Sort by compareprice: Cheap-Expensive Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -202,13 +196,10 @@
 									"function getAllCategories(children, categoryUrls=[]){\r",
 									"    for(let child of children){\r",
 									"        categoryUrls.push(child.url);\r",
-									"        if(child.children.length===0){\r",
-									"            continue;\r",
-									"        }\r",
-									"        getAllCategories(child.children, categoryUrls);\r",
 									"    }\r",
 									"    return categoryUrls;\r",
 									"}\r",
+									"\r",
 									"let categories = getAllCategories(responseData.children);\r",
 									"\r",
 									"for(let i=0; i<categories.length; i++){\r",
@@ -275,7 +266,7 @@
 					"response": []
 				},
 				{
-					"name": "Sort by compareprice: Expensive-Cheap",
+					"name": "Sort by compareprice: Expensive-Cheap Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -285,23 +276,21 @@
 									"function getAllCategories(children, categoryUrls=[]){\r",
 									"    for(let child of children){\r",
 									"        categoryUrls.push(child.url);\r",
-									"        if(child.children.length===0){\r",
-									"            continue;\r",
-									"        }\r",
-									"        getAllCategories(child.children, categoryUrls);\r",
 									"    }\r",
 									"    return categoryUrls;\r",
 									"}\r",
+									"\r",
 									"let categories = getAllCategories(responseData.children);\r",
 									"\r",
 									"for(let i=0; i<categories.length; i++){\r",
 									"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=compareprice-desc`, (error, response) => {\r",
 									"        let responseData = response.json(); \r",
-									"\r",
 									"        const ordinaryprices = [];\r",
 									"        const allPrices = [];\r",
 									"        for(let i = 0; i < responseData.results.length; i++){ \r",
-									"            var ordinaryPrice = (responseData.results[i].comparePrice.slice(0,5));\r",
+									"            //var ordinaryPrice = (responseData.results[i].comparePrice.slice(0,5));\r",
+									"       \r",
+									"         \r",
 									"            var promotion = (responseData.results[i].potentialPromotions[0]);\r",
 									"            const comparePrice = parseFloat(ordinaryprices)\r",
 									"            ordinaryprices.push(comparePrice);\r",
@@ -358,7 +347,7 @@
 					"response": []
 				},
 				{
-					"name": "Sort by name: A-Ö",
+					"name": "Sort by name: A-Ö Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -368,13 +357,10 @@
 									"function getAllCategories(children, categoryUrls=[]){\r",
 									"    for(let child of children){\r",
 									"        categoryUrls.push(child.url);\r",
-									"        if(child.children.length===0){\r",
-									"            continue;\r",
-									"        }\r",
-									"        getAllCategories(child.children, categoryUrls);\r",
 									"    }\r",
 									"    return categoryUrls;\r",
 									"}\r",
+									"\r",
 									"let categories = getAllCategories(responseData.children);\r",
 									"\r",
 									"for(let i=0; i<categories.length; i++){    \r",
@@ -437,7 +423,7 @@
 					"response": []
 				},
 				{
-					"name": "Sort by name: Ö-A",
+					"name": "Sort by name: Ö-A Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -447,13 +433,10 @@
 									"function getAllCategories(children, categoryUrls=[]){\r",
 									"    for(let child of children){\r",
 									"        categoryUrls.push(child.url);\r",
-									"        if(child.children.length===0){\r",
-									"            continue;\r",
-									"        }\r",
-									"        getAllCategories(child.children, categoryUrls);\r",
 									"    }\r",
 									"    return categoryUrls;\r",
 									"}\r",
+									"\r",
 									"let categories = getAllCategories(responseData.children);\r",
 									"\r",
 									"for(let i=0; i<categories.length; i++){    \r",
@@ -519,8 +502,126 @@
 					},
 					"response": []
 				}
+			]
+		},
+		{
+			"name": "Pagination Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();\r",
+							"function getAllCategories(children, categoryUrls=[]){\r",
+							"    for(let child of children){\r",
+							"        categoryUrls.push(child.url);\r",
+							"    }\r",
+							"    return categoryUrls;\r",
+							"}\r",
+							"let categories = getAllCategories(responseData.children);\r",
+							"\r",
+							"for(let i=0; i<categories.length; i++){\r",
+							"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&sort=price-asc`, (error, response) => { \r",
+							"        pm.test(\"Correct number of results per page\", function () {\r",
+							"            const resultsPerPage = 31;\r",
+							"            const jsonData = response.json();\r",
+							"            const results = jsonData.results.length;\r",
+							"            pm.expect(results).lessThan(resultsPerPage);\r",
+							"        }); \r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
 			],
-			"description": "Sort by price tests are adapted to suit the API which does not show promotionprices even if there is an active promotion in place. The tests therefore check if a promotion is active or not and compare the promotionprice with the ordinaryprice."
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/leftMenu/categorytree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"leftMenu",
+						"categorytree"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Visibility in productList Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let responseData = pm.response.json();\r",
+							"function getAllCategories(children, categoryUrls=[]){\r",
+							"    for(let child of children){\r",
+							"        categoryUrls.push(child.url);\r",
+							"\r",
+							"    }\r",
+							"    return categoryUrls;\r",
+							"}\r",
+							"let categories = getAllCategories(responseData.children);\r",
+							"\r",
+							"for(let i=0; i<categories.length; i++){\r",
+							"    //This category comes out empty 14/11-24\r",
+							"    if(categories[i].includes(\"kiosk\")){\r",
+							"        continue;\r",
+							"    } \r",
+							"    pm.sendRequest(`http://localhost:4000/api/c/${categories[i]}?size=30&page=0&=topRated`, (error, response) => { \r",
+							"        console.log(\"Endpoint: \" + categories[i])\r",
+							"            let responseData = response.json();\r",
+							"            for(i=0; i<responseData.results.length; i++){\r",
+							"                const price = responseData.results[i].price\r",
+							"                const name = responseData.results[i].name\r",
+							"                const image = responseData.results[i].image.url\r",
+							"                if(price.length<1 || name.length<1|| image.length<1){\r",
+							"                    console.log(\"FAILURE!\")\r",
+							"                    console.log(\"price: \" + price.length);\r",
+							"                    console.log(\"name: \" + name.length);\r",
+							"                    console.log(\"image: \" + image.length);\r",
+							"                }\r",
+							"            pm.test(\"Check if productlist show a name, price and picture\", function () {\r",
+							"                pm.expect(price.length).to.be.greaterThan(0)\r",
+							"                pm.expect(name.length).to.be.greaterThan(0)\r",
+							"                pm.expect(image.length).to.be.greaterThan(0)\r",
+							"            });\r",
+							"        }\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/leftMenu/categorytree",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"leftMenu",
+						"categorytree"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
